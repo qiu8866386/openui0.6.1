@@ -31,6 +31,7 @@ RUN npm ci
 
 COPY . .
 ENV APP_BUILD_HASH=${BUILD_HASH}
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 RUN npm run build
 
 ######## WebUI backend ########
@@ -81,6 +82,7 @@ ENV TIKTOKEN_ENCODING_NAME="cl100k_base" \
     TIKTOKEN_CACHE_DIR="/app/backend/data/cache/tiktoken"
 
 ## Hugging Face download cache ##
+ENV HF_ENDPOINT="https://hf-mirror.com"
 ENV HF_HOME="/app/backend/data/cache/embedding/models"
 
 ## Torch Extensions ##

@@ -17,6 +17,10 @@
 	export let className = 'max-w-[240px]';
 
 	const dispatch = createEventDispatcher();
+	// 查看⼈数
+	onMount(() => {
+		console.log($activeUserIds?.length);
+	});
 </script>
 
 <DropdownMenu.Root
@@ -190,7 +194,7 @@
 			{#if $activeUserIds?.length > 0}
 				<hr class=" border-gray-100 dark:border-gray-850 my-1 p-0" />
 
-				<Tooltip
+				<!-- <Tooltip
 					content={$USAGE_POOL && $USAGE_POOL.length > 0
 						? `${$i18n.t('Running')}: ${$USAGE_POOL.join(', ')} ✨`
 						: ''}
@@ -214,7 +218,7 @@
 							</span>
 						</div>
 					</div>
-				</Tooltip>
+				</Tooltip> -->
 			{/if}
 
 			<!-- <DropdownMenu.Item class="flex items-center px-3 py-2 text-sm ">

@@ -671,36 +671,17 @@ CUSTOM_NAME = os.environ.get("CUSTOM_NAME", "")
 
 if CUSTOM_NAME:
     try:
-        r = requests.get(f"https://api.openwebui.com/api/v1/custom/{CUSTOM_NAME}")
-        data = r.json()
-        if r.ok:
-            if "logo" in data:
-                WEBUI_FAVICON_URL = url = (
-                    f"https://api.openwebui.com{data['logo']}"
-                    if data["logo"][0] == "/"
-                    else data["logo"]
-                )
-
-                r = requests.get(url, stream=True)
-                if r.status_code == 200:
-                    with open(f"{STATIC_DIR}/favicon.png", "wb") as f:
-                        r.raw.decode_content = True
-                        shutil.copyfileobj(r.raw, f)
-
-            if "splash" in data:
-                url = (
-                    f"https://api.openwebui.com{data['splash']}"
-                    if data["splash"][0] == "/"
-                    else data["splash"]
-                )
-
-                r = requests.get(url, stream=True)
-                if r.status_code == 200:
-                    with open(f"{STATIC_DIR}/splash.png", "wb") as f:
-                        r.raw.decode_content = True
-                        shutil.copyfileobj(r.raw, f)
-
-            WEBUI_NAME = data["name"]
+        favicon_path = f"backend\open_webui\splash.png"
+        splash_path = f"backend\open_webui\favicon.png"
+        # 使⽤本地图⽚⽽⾮通过⽹络请求
+        if os.path.exists(favicon_path):
+            # 如果 favicon.png ⽂件存在，就直接复制到 STATIC_DIR ⽬录
+            shutil.copy(favicon_path, f"{STATIC_DIR}/favicon.png")
+        if os.path.exists(splash_path):
+            # 如果 splash.png ⽂件存在，就直接复制到 STATIC_DIR ⽬录
+            shutil.copy(splash_path, f"{STATIC_DIR}/splash.png")
+        # 如果需要⾃定义名称，可以直接从 CUSTOM_NAME 设置
+        WEBUI_NAME = CUSTOM_NAME if CUSTOM_NAME else "智能助⼿"
     except Exception as e:
         log.exception(e)
         pass
@@ -799,7 +780,7 @@ if OLLAMA_BASE_URL == "" and OLLAMA_API_BASE_URL != "":
 if ENV == "prod":
     if OLLAMA_BASE_URL == "/ollama" and not K8S_FLAG:
         if USE_OLLAMA_DOCKER.lower() == "true":
-            # if you use all-in-one docker container (Open WebUI + Ollama)
+            # if you use all-in-one docker container (政务大模型 + Ollama)
             # with the docker build arg USE_OLLAMA=true (--build-arg="USE_OLLAMA=true") this only works with http://localhost:11434
             OLLAMA_BASE_URL = "http://localhost:11434"
         else:

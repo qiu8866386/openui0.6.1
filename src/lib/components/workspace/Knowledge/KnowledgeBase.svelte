@@ -109,6 +109,10 @@
 		console.log(file);
 		return file;
 	};
+	// 文件大小转换 size  bytes ==> MB
+	const bytesToMB = (sizeInBytes) => {
+		return sizeInBytes / (1024 * 1024);
+	};
 
 	const uploadFileHandler = async (file) => {
 		console.log(file);
@@ -174,6 +178,16 @@
 			toast.error(`${e}`);
 		}
 	};
+	const sizeInMB = bytesToMB(file.size).toFixed(4); // 保留 4 位小数
+
+	if (sizeInMB >= fileSize) {
+		toast.error(
+			$i18n.t('RepositorySizeControl{{fileSize}}', {
+				fileSize: fileSize
+			})
+		);
+		return null;
+	}
 
 	const uploadDirectoryHandler = async () => {
 		// Check if File System Access API is supported

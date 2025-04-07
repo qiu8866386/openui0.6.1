@@ -266,7 +266,7 @@
 					on:click={() => setSortKey('email')}
 				>
 					<div class="flex gap-1.5 items-center">
-						{$i18n.t('Email')}
+						{$i18n.t('Phone')}
 
 						{#if sortKey === 'email'}
 							<span class="font-normal"

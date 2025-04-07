@@ -47,11 +47,11 @@
 		<div>
 			<div class=" mb-2.5 text-sm font-medium flex space-x-2 items-center">
 				<div>
-					{$WEBUI_NAME}
+					{$i18n.t('政务大模型')}
 					{$i18n.t('Version')}
 				</div>
 			</div>
-			<div class="flex w-full justify-between items-center">
+			<!-- <div class="flex w-full justify-between items-center">
 				<div class="flex flex-col text-xs text-gray-700 dark:text-gray-200">
 					<div class="flex gap-1">
 						<Tooltip content={WEBUI_BUILD_HASH}>
@@ -88,7 +88,7 @@
 				>
 					{$i18n.t('Check for updates')}
 				</button>
-			</div>
+			</div> -->
 		</div>
 
 		{#if ollamaVersion}
@@ -108,8 +108,8 @@
 
 		{#if $config?.license_metadata}
 			<div class="mb-2 text-xs">
-				{#if !$WEBUI_NAME.includes('Open WebUI')}
-					<span class=" text-gray-500 dark:text-gray-300 font-medium">{$WEBUI_NAME}</span> -
+				{#if !$i18n.t('政务大模型').includes('政务大模型')}
+					<span class=" text-gray-500 dark:text-gray-300 font-medium">{$i18n.t('政务大模型')}</span> -
 				{/if}
 
 				<span class=" capitalize">{$config?.license_metadata?.type}</span> license purchased by
@@ -151,7 +151,7 @@
 				class="text-xs text-gray-400 dark:text-gray-500">Copyright (c) {new Date().getFullYear()} <a
 					href="https://openwebui.com"
 					target="_blank"
-					class="underline">Open WebUI (Timothy Jaeryang Baek)</a
+					class="underline">政务大模型 (Timothy Jaeryang Baek)</a
 				>
 All rights reserved.
 
